@@ -86,12 +86,15 @@ def checkbox(metadata, value):
     return metadata['commands'][0] if value else None
 
 
-def multiFileChooser(metadata, value):
+def multiFileChooser_old(metadata, value):
     paths = ' '.join(quote(x) for x in value.split(os.pathsep) if x)
     if metadata['commands'] and paths:
         return u'{} {}'.format(metadata['commands'][0], paths)
     return paths or None
 
+def multiFileChooser(metadata, value):
+    paths = ' '.join(u'{} {}'.format(metadata['commands'][0],  quote(x)) for x in value.split(os.pathsep) if x)
+    return paths or None
 
 def textArea(metadata, value):
     if metadata['commands'] and value:
